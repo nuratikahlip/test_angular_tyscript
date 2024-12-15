@@ -1,0 +1,108 @@
+<div class="registration-container">
+    <div class="registration-form">
+      <h1>Registration Form</h1>
+      <p>Fill out the form carefully for registration</p>
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <!-- Username -->
+        <div class="form-group">
+          <label for="username">
+            Username <span class="required">*</span>
+          </label>
+          <input
+            id="username"
+            type="text"
+            formControlName="username"
+            placeholder="Enter Username"
+            class="form-control"
+            (focus)="showCondition('username')"
+            (blur)="hideCondition()"
+          />
+          <div *ngIf="focusedField === 'username'" class="field-condition">
+            Must be 6 to 20 characters long
+          </div>
+          <!-- Display error message for username -->
+          <div *ngIf="registrationForm.get('username')?.invalid && registrationForm.get('username')?.touched" class="error-message">
+            Please enter a valid username (6-20 characters).
+          </div>
+        </div>
+  
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">
+            Email <span class="required">*</span>
+          </label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="Enter Email (e.g., email@example.com)"
+            class="form-control"
+            (focus)="showCondition('email')"
+            (blur)="hideCondition()"
+          />
+          <div *ngIf="focusedField === 'email'" class="field-condition">
+            Must be a valid email format (e.g., email&#64;example.com)
+          </div>
+          <!-- Display error message if email is invalid -->
+          <div *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched" class="error-message">
+            Please enter a valid email address.
+          </div>
+        </div>
+  
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">
+            Password <span class="required">*</span>
+          </label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            placeholder="Enter Password"
+            class="form-control"
+            (focus)="showCondition('password')"
+            (blur)="hideCondition()"
+          />
+          <div *ngIf="focusedField === 'password'" class="field-condition">
+            Must be at least 6 characters long
+          </div>
+          <!-- Display error message for password -->
+          <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched" class="error-message">
+            Password must be at least 6 characters long.
+          </div>
+        </div>
+  
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="confirmPassword">
+            Confirm Password <span class="required">*</span>
+          </label>
+          <input
+            id="confirmPassword"
+            type="password"
+            formControlName="confirmPassword"
+            placeholder="Confirm Password"
+            class="form-control"
+            (focus)="showCondition('confirmPassword')"
+            (blur)="hideCondition()"
+          />
+          <div *ngIf="focusedField === 'confirmPassword'" class="field-condition">
+            Must match the password
+          </div>
+          <!-- Error Message for Password Mismatch -->
+          <div *ngIf="registrationForm.errors?.['passwordsDontMatch'] && registrationForm.get('confirmPassword')?.touched" class="error-message">
+            Passwords do not match.
+          </div>          
+          <!-- Display error message for confirmPassword -->
+          <div *ngIf="registrationForm.get('confirmPassword')?.invalid && registrationForm.get('confirmPassword')?.touched" class="error-message">
+            Please confirm your password.
+          </div>
+        </div>
+  
+        <button type="submit" [disabled]="!registrationForm.valid" class="btn-submit">
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+  
